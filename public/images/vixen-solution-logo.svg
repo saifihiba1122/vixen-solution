@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 766.09 252.46" role="img" aria-labelledby="title desc">
+  <title id="title">Vixen Solution Logo</title>
+  <desc id="desc">Orange Vixen mark with the words Vixen Solution in white.</desc>
+  <defs>
+    <style>
+      .icon { fill:#f48218; stroke-width:0; }
+      .wordmark { fill:#ffffff; font-family:Arial, Helvetica, sans-serif; font-size:66px; font-weight:700; letter-spacing:-1.5px; }
+    </style>
+  </defs>
+  <g>
+    <polygon class="icon" points="125.2 140.15 117.74 127.24 98.73 94.3 91.31 81.48 89.71 81.48 90.52 80.1 90.52 80.08 98.73 65.88 106.93 80.08 106.93 80.1 107.72 81.48 125.95 113.02 144.16 81.48 144.97 80.1 144.97 80.08 125.95 47.16 125.95 47.14 117.74 32.94 98.73 0 79.71 32.94 71.5 47.14 71.5 47.16 52.49 80.08 52.49 80.1 53.28 81.48 71.5 113.02 71.5 113.04 79.71 127.24 98.73 160.18 106.18 173.09 106.18 173.11 98.73 186 91.27 173.09 72.25 140.15 53.06 173.39 72.08 206.33 79.54 219.24 98.73 252.46 117.9 219.24 125.36 206.33 144.38 173.39 125.2 140.17 125.2 140.15"/>
+    <polygon class="icon" points="45.03 93.01 38.36 81.48 0 81.48 25.84 126.23 44.86 159.17 64.05 125.95 45.03 93.01"/>
+    <polygon class="icon" points="159.07 81.48 152.42 93.01 133.41 125.95 152.58 159.17 171.6 126.23 197.44 81.48 159.07 81.48"/>
+  </g>
+  <text class="wordmark" x="220" y="190">Vixen Solution</text>
+</svg>
