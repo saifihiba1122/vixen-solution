@@ -27,7 +27,7 @@ body {
   font-family: "Barlow", sans-serif;
   background: var(--black);
   color: var(--white);
-  overflow-x: hidden;
+  overflow-x: clip;
   cursor: none;
 }
 .cursor {
@@ -288,6 +288,49 @@ nav {
   z-index: 2;
   position: relative;
   padding: 40px 24px;
+}
+.welcome-cartoon {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 280px;
+  margin-bottom: 20px;
+}
+.welcome-bg-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: clamp(32px, 6vw, 80px);
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  line-height: 1.02;
+  white-space: nowrap;
+  color: #ffffff12;
+  z-index: 1;
+  pointer-events: none;
+}
+.welcome-fox {
+  position: relative;
+  z-index: 2;
+  font-size: clamp(150px, 22vw, 280px);
+  line-height: 1;
+  filter: drop-shadow(0 18px 44px rgba(0, 0, 0, 0.6));
+  animation: welcome-float 4s ease-in-out infinite;
+}
+@keyframes welcome-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+@media (max-width: 767px) {
+  .welcome-bg-text {
+    white-space: normal;
+    width: 100%;
+    font-size: clamp(22px, 7vw, 40px);
+  }
 }
 .home-tag {
   font-size: 14px;
@@ -950,7 +993,7 @@ nav {
 .testimonials-section {
   background: var(--black);
   position: relative;
-  overflow: hidden;
+  overflow: clip;
   padding: 90px 64px 82px;
   border-bottom: 1px solid #ffffff08;
 }
@@ -4151,12 +4194,7 @@ footer,
 }
 .page {
   width: 100%;
-  overflow-x: hidden;
-}
-@supports (overflow: clip) {
-  .page {
-    overflow-x: clip;
-  }
+  overflow-x: clip;
 }
 img,
 picture,
@@ -4180,7 +4218,7 @@ iframe {
 .testimonials-section {
   width: 100%;
   max-width: 100%;
-  overflow-x: hidden !important;
+  overflow-x: clip !important;
 }
 .logo-carousel-track,
 .social-gallery-track,
@@ -4728,5 +4766,67 @@ iframe {
   .nav-dropdown-menu a:focus-visible {
     color: #fff;
     background: rgba(244, 130, 24, 0.12);
+  }
+}
+
+/* ═══════════════════════════════════════════
+   STACKING SECTIONS — true pinned overlap (reference effect)
+   Each section is sticky; JS sets its `top` from its height so
+   tall sections scroll through all their content, then pin at the
+   bottom while the NEXT section slides up and over them.
+   Overlap starts from Testimonials onward. All content stays visible.
+═══════════════════════════════════════════ */
+
+/* All stack sections are sticky (top offset set by JS) */
+#page-portfolio,
+#client-testimonials,
+.page.cat-page,
+#page-contact {
+  position: sticky;
+  top: 0;
+  background: var(--black);
+}
+
+/* Overlapping sections: rounded top, visible light edge, shadow */
+#client-testimonials,
+.page.cat-page,
+#page-contact {
+  border-radius: 34px 34px 0 0;
+  border-top: 1.5px solid rgba(255, 255, 255, 0.16);
+  box-shadow: 0 -22px 55px rgba(0, 0, 0, 0.75);
+}
+
+/* Stacking order — each section sits above the previous one */
+#page-portfolio { z-index: 1; }
+#client-testimonials { z-index: 2; }
+#page-logofio { z-index: 3; }
+#page-branding { z-index: 4; }
+#page-socialmedia { z-index: 5; }
+#page-packaging { z-index: 6; }
+#page-printmedia { z-index: 7; }
+#page-uiux { z-index: 8; }
+#page-vectorgraphics { z-index: 9; }
+#page-presentationdesign { z-index: 10; }
+#page-aivideo { z-index: 11; }
+#page-contact { z-index: 12; }
+
+/* Lenis smooth scroll */
+html.lenis, html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+@media (max-width: 767px) {
+  #page-about,
+  #page-portfolio,
+  #client-testimonials,
+  .page.cat-page,
+  #page-contact {
+    border-radius: 18px 18px 0 0;
   }
 }

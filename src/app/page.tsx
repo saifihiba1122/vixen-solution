@@ -1,5 +1,6 @@
 'use client'
 import { useEffect, useState, useRef, FormEvent } from 'react'
+import Lenis from 'lenis'
 
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -43,6 +44,38 @@ export default function Home() {
       document.querySelectorAll('.reveal:not(.visible)').forEach(el => el.classList.add('visible'))
     }, 1500)
     return () => { cleanup?.(); clearTimeout(fallback) }
+  }, [])
+
+  // Lenis smooth scroll
+  useEffect(() => {
+    const lenis = new Lenis({ lerp: 0.08, smoothWheel: true })
+    function raf(time: number) { lenis.raf(time); requestAnimationFrame(raf) }
+    requestAnimationFrame(raf)
+    return () => lenis.destroy()
+  }, [])
+
+  // Stacking sections — set sticky `top` from each section's height so tall
+  // sections scroll through their content, then pin while the next slides over.
+  useEffect(() => {
+    const ids = [
+      'page-portfolio', 'client-testimonials',
+      'page-logofio', 'page-branding', 'page-socialmedia', 'page-packaging',
+      'page-printmedia', 'page-uiux', 'page-vectorgraphics',
+      'page-presentationdesign', 'page-aivideo', 'page-contact',
+    ]
+    const els = ids.map(id => document.getElementById(id)).filter((e): e is HTMLElement => !!e)
+    const apply = () => {
+      const vh = window.innerHeight
+      els.forEach(el => {
+        const h = el.offsetHeight
+        el.style.top = h > vh ? `${vh - h}px` : '0px'
+      })
+    }
+    apply()
+    const ro = new ResizeObserver(apply)
+    els.forEach(el => ro.observe(el))
+    window.addEventListener('resize', apply)
+    return () => { ro.disconnect(); window.removeEventListener('resize', apply) }
   }, [])
 
   // Custom cursor
@@ -227,6 +260,10 @@ export default function Home() {
         <section id="home">
           <div className="bg-grid"></div>
           <div className="home-hero">
+            <div className="welcome-cartoon reveal">
+              <span className="welcome-bg-text">Welcome to Vixen Solution</span>
+              <span className="welcome-fox" role="img" aria-label="Vixen fox mascot">🦊</span>
+            </div>
             <span className="home-tag reveal">Agency Portfolio</span>
             <div className="home-title-box reveal reveal-delay-1">
               <div className="dashed-corner tl"></div>
